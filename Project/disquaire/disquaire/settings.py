@@ -121,5 +121,3 @@ STATIC_URL = '/static/'
 
 
 
-
-#settings
