@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'disquaire.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'disquaire',
+        'NAME': 'test',
         'USER': 'postgres',
         'PASSWORD' : '123',
         'HOST' : 'localhost',
