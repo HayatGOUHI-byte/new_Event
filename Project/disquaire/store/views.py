@@ -13,5 +13,12 @@ def accueil(request):
 def detail(request, id_album):
 	id = int(id_album)
 	album = ALBUMS[id]
-	return HttpResponse(album)
+	if album!=0:
+		return HttpResponse(album)
+	else:
+		return HttpResponse("l'ensemble vide")
+
+
+def album(request):
+	return HttpResponse("cette liste contient les albums ")
 		
