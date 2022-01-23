@@ -4,9 +4,9 @@ from django.conf.urls import include
 
 from . import views 
 
-urlpatterns = [
-    url('detail/<int:id_album>/',views.detail),
-    url('accueil/',views.accueil),
-    url('album',views.album),
 
+urlpatterns = [
+    # url(r'^(?P<album_id>[0-9])/$',views.detail),  #regular expression
+    url('accueil/',views.accueil),
+    url(r'^search/$', views.search),
 ]

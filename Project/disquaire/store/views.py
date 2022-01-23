@@ -4,21 +4,21 @@ from django.shortcuts import render
 # Create your views here.
 
 
-from .models import ARTISTS
+from .models import ALBUMS, ARTISTS
 
 
 def accueil(request):
 	return HttpResponse("Hello world")
 
-def detail(request, id_album):
-	id = int(id_album)
-	album = ALBUMS[id]
-	if album!=0:
-		return HttpResponse(album)
-	else:
-		return HttpResponse("l'ensemble vide")
+
+# def detail(request, album_id):
+	# id = int(album_id)
+	# m = ARTISTS[id]
+	# return HttpResponse("{}".format(m))
 
 
-def album(request):
-	return HttpResponse("cette liste contient les albums ")
-		
+def search(request):
+	obj = str(request.GET)
+	query = request.GET['query']
+	message = "proprietes GET : {} et requete : {}".format(obj, query)
+	return HttpResponse(message)
