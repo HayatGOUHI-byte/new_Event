@@ -6,6 +6,7 @@ from . import views
 
 urlpatterns = [
     # url('', views.index),
-    url('listing/', views.listing),
+    url('detail/<id_album>', views.detail),
+    url('accueil/', views.accueil),
 
 ]
