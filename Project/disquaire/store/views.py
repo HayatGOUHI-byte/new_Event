@@ -9,6 +9,6 @@ def index(request):
 
 
 
-def identite(request):
-	me = "hello haat"
-	return HttpResponse(me)
+def listing(request):
+	artist = ARTISTS['francis-cabriel']['name']
+	return HttpResponse(artist)
