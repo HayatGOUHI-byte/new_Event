@@ -3,17 +3,49 @@ from django.db import models
 # Create your models here.
 
 
-ARTISTS = {
-'francis-cabriel' : {'name': 'Francis Cabriel'},
-'lej': {'name': 'Elijay'},
-'rosana': {'name': 'Rosana'},
-'maria': {'name': 'Maria Dolores Pradera'},
-}
+class Artist(models.Model):
+	name = models.CharField(max_length=200, unique=True)
+
+	def __str__(self):
+		return self.name
 
 
 
-ALBUMS = [
-{'name': 'Sarbacane', 'artists': [ARTISTS['francis-cabriel']]},
-{'name': 'la dalle', 'artists': [ARTISTS['lej']]},
-{'name': 'Luna Nueva', 'artists': [ARTISTS['rosana'], ARTISTS['maria']]}
-]
+class Contact(models.Model):
+	email = models.EmailField(max_length=100)
+	name = models.CharField(max_length=200)
+
+	def __str__(self):
+		return self.name
+
+
+
+
+
+
+
+
+
+
+class Album(models.Model):
+	reference = models.IntegerField(null=True)
+	created_at = models.DateTimeField(auto_now_add=True)
+	availible = models.BooleanField(default=True)
+	title = models.CharField(max_length=200)
+	picture = models.URLField()
+	artists = models.ManyToManyField(Artist, related_name='albums', blank=True)
+
+	def __str__(self):
+		return self.title
+
+
+
+
+class Booking(models.Model):
+	created_at = models.DateTimeField(auto_now_add=True)
+	contacted = models.BooleanField(default=False)
+	contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+	album = models.OneToOneField(Album, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.contact.name

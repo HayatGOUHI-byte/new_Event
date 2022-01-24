@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 # Create your views here.
 
+from .models import Album, Artist, Contact, Booking
 
-from .models import ALBUMS, ARTISTS
+
+
 
 
 def accueil(request):
@@ -17,8 +19,45 @@ def accueil(request):
 	# return HttpResponse("{}".format(m))
 
 
-def search(request):
-	obj = str(request.GET)
+
+def index(request):
+	albums = Album.objects.filter(availible=True).order_by('-created_at')[:12]
+	formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
+	message = """<ul>{}</ul>""".format("\n".join(formatted_albums))
+	return HttpResponse(message)
+
+
+
+def listing(request):
+	albums = Album.objects.filter(availible=True)
+	formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
+	message = """<ul>{}</ul>""".format("\n".join(formatted_albums))
+	return HttpResponse(message)
+
+def detail(request, album_id):
+	album = Album.objects.get(pk = album_id)
+	artists = " ".join([artist.name for artist in album.artists.all()])
+	message = "le nom de l'album est {}.Il a ete ecrit par {}".format(album.title, artists)
 	query = request.GET['query']
 	message = "proprietes GET : {} et requete : {}".format(obj, query)
 	return HttpResponse(message)
+
+
+def search(request):
+	query = request.GET.get('query')
+	if not query:
+		albums = Album.objects.all()
+	else:
+		albums = Album.objects.filter(title__icontains=query)
+
+		if not albums.exists():
+			albums = Album.objects.filter(artist__name__icontains=query)
+
+		if not albums.exists():
+			message = "Misère de Misère on n 'a rien trouve"
+		else:
+			albums = ["<li>{}</li>".format(album.title) for album in albums]
+			message = """
+			Nous avons rien trouvé """.format("</li><li>".join(albums))
+
+		return HttpResponse(message)
