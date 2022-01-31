@@ -7,9 +7,8 @@ from . import views
 
 urlpatterns = [
     # url(r'^(?P<album_id>[0-9])/$',views.detail),  #regular expression
-    url('index/',views.index),
-    url('listing/', views.listing),
-    url('detail/(?P<album_id>[0-9])/$', views.detail),
-    url('search/', views.search),
-  
+    url(r'index/',views.index, name="index"),
+    url(r'listing/', views.listing, name="lists"),
+    url(r'^detail/(?P<album_id>[0-9])/$', views.detail, name="details"),
+    url(r'search/', views.search, name="search"), 
 ]

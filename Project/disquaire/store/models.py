@@ -19,14 +19,6 @@ class Contact(models.Model):
 		return self.name
 
 
-
-
-
-
-
-
-
-
 class Album(models.Model):
 	reference = models.IntegerField(null=True)
 	created_at = models.DateTimeField(auto_now_add=True)
@@ -37,8 +29,6 @@ class Album(models.Model):
 
 	def __str__(self):
 		return self.title
-
-
 
 
 class Booking(models.Model):

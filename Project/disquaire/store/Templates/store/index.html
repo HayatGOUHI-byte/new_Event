@@ -1,0 +1,17 @@
+{% extends "store/base.html" %}
+
+
+
+{% block content%}
+
+<ul style="color:white">
+{% for album in albums %}
+
+    <li> {{album.title}}</li>
+
+{% endfor %}
+</ul>
+{%  endblock %}
+
+
+

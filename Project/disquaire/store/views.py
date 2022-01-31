@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, loader
 # Create your views here.
 
 from .models import Album, Artist, Contact, Booking
@@ -22,9 +22,13 @@ def accueil(request):
 
 def index(request):
 	albums = Album.objects.filter(availible=True).order_by('-created_at')[:12]
-	formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
-	message = """<ul>{}</ul>""".format("\n".join(formatted_albums))
-	return HttpResponse(message)
+	formatted_album = ["<li>{}</li>".format(album.title) for album in albums ]
+	template = loader.get_template("store/index.html")
+	context = {
+	'albums': albums
+	}
+	return HttpResponse(template.render(context, request=request))
+	
 
 
 
@@ -32,7 +36,7 @@ def listing(request):
 	albums = Album.objects.filter(availible=True)
 	formatted_albums = ["<li>{}</li>".format(album.title) for album in albums]
 	message = """<ul>{}</ul>""".format("\n".join(formatted_albums))
-	return HttpResponse(message)
+	return HttpResponse(render(request, 'store/listing.html'))
 
 def detail(request, album_id):
 	album = Album.objects.get(pk = album_id)
@@ -40,7 +44,7 @@ def detail(request, album_id):
 	message = "le nom de l'album est {}.Il a ete ecrit par {}".format(album.title, artists)
 	query = request.GET['query']
 	message = "proprietes GET : {} et requete : {}".format(obj, query)
-	return HttpResponse(message)
+	return HttpResponse(render(request, 'store/detail.html'))
 
 
 def search(request):

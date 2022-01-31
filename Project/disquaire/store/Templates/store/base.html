@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title >listing !</title>
+
+		{% load static %}
+
+	<link rel="stylesheet" href="{% static 'store/css/style.css' %}">	
+	</head>
+	<body bgcolor="black">
+	<div style="color:white">
+				<p>on a aujourd'hui 8 store</p>
+	</div>
+
+	<p  style="color:white">
+		{% block content%}
+        {% endblock %}
+	</p>
+	
+	</body>
+</html>
