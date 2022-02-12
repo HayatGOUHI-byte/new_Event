@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from django.conf.urls import include
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from . import views 
 
@@ -12,3 +12,7 @@ urlpatterns = [
     url(r'^detail/(?P<album_id>[0-9])/$', views.detail, name="details"),
     url(r'search/', views.search, name="search"), 
 ]
+
+
+
+urlpatterns += staticfiles_urlpatterns()

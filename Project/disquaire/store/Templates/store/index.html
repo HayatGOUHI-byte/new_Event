@@ -1,17 +1,26 @@
 {% extends "store/base.html" %}
 
+<!-- comment peux-je insérer de l'image dans la base de données -->
 
 
 {% block content%}
 
 <ul style="color:white">
 {% for album in albums %}
-
     <li> {{album.title}}</li>
 
+	{% for artist in album.artists.all %}
+       <p> {{ artist.name }}</p>
+    {% endfor %}
 {% endfor %}
 </ul>
+
+<!-- 
+<p style="color:white">
+	{% load static %} <img src="{% static 'store/media/12.jfif'  %}" alt="{{album.title}}"> 
+</p>
+ -->
+
+
+
 {%  endblock %}
-
-
-
